@@ -71,7 +71,11 @@ async function generateGoogleMapsUrl(userLatitude, userLongitude, attractions) {
 
  */
 
-const distanceCalculator = require('../utils/distanceCalculator');
+/* *********************************FIN DE LA PRIMERA SOLUCION**   *************************************************** */
+
+/* *********************************INICIO DE LA SEGUNDA SOLUCION***************************************************** */
+
+/* const distanceCalculator = require('../utils/distanceCalculator');
 const axios = require('axios');
 const Attraction = require('../models/attraction');
 
@@ -147,4 +151,94 @@ async function generateGoogleMapsUrl(userLatitude, userLongitude, attractions) {
     });
 
     return `${baseUrl}?${params.toString()}`;
+} */
+
+/* *********************************FIN DE LA SEGUNDA SOLUCION***************************************************** */
+
+
+
+
+/* *********************************INICIO DE LA TERCERA SOLUCION***************************************************** */
+
+
+const distanceCalculator = require('../utils/distanceCalculator');
+const axios = require('axios');
+const Attraction = require('../models/attraction');
+
+exports.processLocation = async (req, res) => {
+    try {
+        const { latitude, longitude } = req.body;
+        const RADIO_LIMITE = 10; // Radio límite en kilómetros
+
+        // Calcular distancias a los atractivos turísticos
+        const attractions = await Attraction.find({});
+        const distances = await Promise.all(attractions.map(async (attraction) => {
+            const distance = await distanceCalculator(latitude, longitude, attraction.latitude, attraction.longitude);
+            const travelTime = await getTravelTime(latitude, longitude, attraction.latitude, attraction.longitude);
+            return {
+                name: attraction.name,
+                latitude: attraction.latitude,
+                longitude: attraction.longitude,
+                distance,
+                travelTime
+            };
+        }));
+
+        // Filtrar atractivos dentro del radio y ordenar por distancia
+        const attractionsInRadius = distances
+            .filter(attraction => attraction.distance <= RADIO_LIMITE)
+            .sort((a, b) => a.distance - b.distance);
+
+        // Crear mensajes personalizados para cada atractivo
+        const messages = attractionsInRadius.map(attraction => ({
+            type: "to_user",
+            content: `📍 *${attraction.name}*:  
+🛣️ Se encuentra a ${attraction.distance.toFixed(2)} km de tu ubicación.  
+⏱️ Tiempo estimado de viaje: ${attraction.travelTime || 'No disponible'}.  
+🌐 [Ver ruta en Google Maps](https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${attraction.latitude},${attraction.longitude}&travelmode=driving)`
+        }));
+
+        // Enviar la respuesta al CRM
+        res.json({
+            messages: [
+                {
+                    type: "to_user",
+                    content: `🗺️ Aquí tienes los atractivos más cercanos y el tiempo estimado de viaje:`
+                },
+                ...messages
+            ]
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al procesar la ubicación' });
+    }
+};
+
+// Función para obtener tiempo estimado de viaje usando Google Maps Directions API
+async function getTravelTime(originLat, originLng, destLat, destLng) {
+    const { Client } = require('@googlemaps/google-maps-services-js');
+    const client = new Client({});
+
+    try {
+        const response = await client.directions({
+            params: {
+                origin: `${originLat},${originLng}`,
+                destination: `${destLat},${destLng}`,
+                mode: 'driving',
+                key: process.env.GOOGLE_MAPS_API_KEY
+            }
+        });
+
+        // Extraer la duración del viaje (formato legible, como '15 mins')
+        const travelTime = response.data.routes[0]?.legs[0]?.duration?.text;
+        return travelTime || 'No disponible';
+    } catch (error) {
+        console.error('Error obteniendo el tiempo de viaje:', error.message);
+        return 'No disponible';
+    }
 }
+
+
+
+
+/* *********************************FIN DE LA TERCERA SOLUCION***************************************************** */
