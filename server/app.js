@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/locationRoutes');
+const locationRestaurant = require('./routes/locationRoutes'); 
 const attractionsRoutes = require('./routes/attractionsRoutes');
+const restaurantsRoutes = require('./routes/restaurantsRoutes');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('../config/db');
@@ -21,8 +23,11 @@ app.use(express.json());
 app.use(cors());
 
 // Rutas
-app.use('/api/location', locationRoutes);
-app.use('/api/attractions', attractionsRoutes);
+app.use('/api/location', locationRoutes); // Ruta para procesar la UBICACION de los atracciones 
+app.use('/api/location/restaurant', locationRestaurant); // Ruta para procesar la UBICACION del restaurante
+app.use('/api/attractions', attractionsRoutes); // Ruta para procesar las atracciones
+app.use('/api/restaurants', restaurantsRoutes); // Ruta para procesar los restaurantes
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
