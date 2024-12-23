@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/locationRoutes');
-const locationRestaurant = require('./routes/locationRoutes'); 
+const locationRestaurant = require('./routes/locationrestRoutes'); 
+//const locationRestaurant = require('./routes/locationRoutes'); 
 const attractionsRoutes = require('./routes/attractionsRoutes');
 const restaurantsRoutes = require('./routes/restaurantsRoutes');
 const dotenv = require('dotenv');
@@ -12,11 +13,7 @@ dotenv.config();
 
 const app = express();
 
-// Conectar a MongoDB
-/* mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});  */
+
 
 // Middleware
 app.use(express.json());
@@ -24,7 +21,8 @@ app.use(cors());
 
 // Rutas
 app.use('/api/location', locationRoutes); // Ruta para procesar la UBICACION de los atracciones 
-app.use('/api/location/restaurant', locationRestaurant); // Ruta para procesar la UBICACION del restaurante
+//app.use('/api/location/restaurant', locationRestaurant); // Ruta para procesar la UBICACION del restaurante
+app.use('/api/restaurant', locationRestaurant); // Ruta para procesar la UBICACION del restaurante
 app.use('/api/attractions', attractionsRoutes); // Ruta para procesar las atracciones
 app.use('/api/restaurants', restaurantsRoutes); // Ruta para procesar los restaurantes
 
