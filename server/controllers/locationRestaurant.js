@@ -89,13 +89,13 @@ exports.processLocation = async (req, res) => {
         const { latitude, longitude, keyword } = req.body;
 
         // Validar el keyword "restaurante"
-        if (!keyword || keyword.toLowerCase() !== "a") {
+        if (!keyword || keyword.toLowerCase() !== "b") {
             
             return res.status(400).json({
                 messages: [
                     {
                         type: "to_user",
-                        content: "🚫 Por favor, indica 'restaurante' como respuesta para buscar opciones cercanas. 🍴"
+                        content: "🚫 Por favor, indica 'B' como respuesta para buscar opciones cercanas. 🍴"
                     }
                 ]
             });
