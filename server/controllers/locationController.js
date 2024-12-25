@@ -167,7 +167,20 @@ const Attraction = require('../models/attraction');
 
 exports.processLocation = async (req, res) => {
     try {
-        const { latitude, longitude } = req.body;
+        const { latitude, longitude, atractivos } = req.body;
+
+            // Validar el keyword "atractivos"
+            if (!atractivos || atractivos.toLowerCase() !== "b") {
+                return res.status(400).json({
+                    messages: [
+                        {
+                            type: "to_user",
+                            content: "🚫 Por favor, indica 'restaurante' como respuesta para buscar opciones cercanas. 🍴"
+                        }
+                    ]
+                });
+            }
+
         const RADIO_LIMITE = 10; // Radio límite en kilómetros
 
         // Calcular distancias a los atractivos turísticos

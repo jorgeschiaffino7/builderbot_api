@@ -86,7 +86,19 @@ const Restaurant = require('../models/restaurant');
 
 exports.processLocation = async (req, res) => {
     try {
-        const { latitude, longitude } = req.body;
+        const { latitude, longitude, restaurante } = req.body;
+
+                // Validar el keyword "restaurante"
+                if (!restaurante || restaurante.toLowerCase() !== "a") {
+                    return res.status(400).json({
+                        messages: [
+                            {
+                                type: "to_user",
+                                content: "🚫 Por favor, indica 'restaurante' como respuesta para buscar opciones cercanas. 🍴"
+                            }
+                        ]
+                    });
+                }
 
 
         const RADIO_LIMITE = 10; // Radio límite en kilómetros
