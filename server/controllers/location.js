@@ -139,17 +139,6 @@ exports.processLocation = async (req, res) => {
     try {
         const { latitude, longitude, categories } = req.body;
 
-        // Validar que latitude y longitude sean números
-        if (typeof latitude !== "number" || typeof longitude !== "number") {
-            return res.status(400).json({
-                messages: [
-                    {
-                        type: "to_user",
-                        content: "🚫 Las coordenadas deben ser números válidos (latitud y longitud)."
-                    }
-                ]
-            });
-        }
 
         // Convertir "categories" en un array si es un string
         const categoriesArray = Array.isArray(categories)
