@@ -80,7 +80,7 @@ async function getTravelTime(originLat, originLng, destLat, destLng) {
 
 /* *********************************INICIO DE LA SEGUNDA SOLUCION***************************************************** */
 
-const distanceCalculator = require('../utils/distanceCalculator');
+/* const distanceCalculator = require('../utils/distanceCalculator');
 const axios = require('axios');
 const Restaurant = require('../models/restaurant');
 
@@ -184,6 +184,6 @@ async function getTravelTime(originLat, originLng, destLat, destLng) {
         return 'No disponible';
     }
 }
-
+ */
 
 /* *********************************FIN DE LA SEGUNDA SOLUCION***************************************************** */

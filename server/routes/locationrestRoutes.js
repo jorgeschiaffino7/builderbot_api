@@ -1,5 +1,5 @@
-const express = require('express');
-//const locationController = require('../controllers/locationController');
+/* const express = require('express');
+
 const locationRestaurant = require('../controllers/locationRestaurant');
 
 const router = express.Router();
@@ -14,4 +14,4 @@ router.post('/', locationRestaurant.processLocation);
 module.exports = router;
 
 
-//TODO: este archivo se utiliza para procesar la ubicación de los restaurantes.
+//TODO: este archivo se utiliza para procesar la ubicación de los restaurantes. */

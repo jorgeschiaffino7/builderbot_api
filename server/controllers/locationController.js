@@ -248,7 +248,7 @@ async function getTravelTime(originLat, originLng, destLat, destLng) {
 
 
 /* *********************************INICIO DE LA CUARTA SOLUCION***************************************************** */
-
+/* 
 const distanceCalculator = require('../utils/distanceCalculator');
 const axios = require('axios');
 const Attraction = require('../models/attraction');
@@ -352,6 +352,6 @@ async function getTravelTime(originLat, originLng, destLat, destLng) {
         return 'No disponible';
     }
 }
-
+ */
 
 /* *********************************FIN DE LA CUARTA SOLUCION***************************************************** */
