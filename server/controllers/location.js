@@ -151,7 +151,7 @@ exports.processLocation = async (req, res) => {
                 messages: [
                     {
                         type: "to_user",
-                        content: "🚫 Por favor, selecciona al menos una categoría para buscar opciones cercanas (por ejemplo, 'atractivos', 'restaurantes')."
+                        content: "🚫 Por favor, selecciona al menos una categoría para buscar opciones cercanas (por ejemplo, 'A', 'R')."
                     }
                 ]
             });
@@ -161,8 +161,8 @@ exports.processLocation = async (req, res) => {
 
         // Mapear las categorías a sus modelos correspondientes
         const categoryModels = {
-            atractivos: Attraction,
-            restaurantes: Restaurant,
+            a: Attraction,
+            r: Restaurant,
             //bares: Bar,
             //centros medicos: MedicalCenter,
         };
