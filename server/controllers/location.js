@@ -279,29 +279,18 @@ exports.processLocation = async (req, res) => {
     try {
         const { latitude, longitude, categories } = req.body;
 
-        // Validar coordenadas
-        if (typeof latitude !== "number" || typeof longitude !== "number") {
-            return res.status(400).json({
-                messages: [
-                    {
-                        type: "to_user",
-                        content: "🚫 Las coordenadas deben ser números válidos (latitud y longitud)."
-                    }
-                ]
-            });
-        }
-
         // Convertir "categories" en un array si es un string
         const categoriesArray = Array.isArray(categories)
             ? categories
             : categories.split(",").map((cat) => cat.trim().toLowerCase());
 
+        // Validar que haya al menos una categoría seleccionada
         if (!categoriesArray || categoriesArray.length === 0) {
             return res.status(400).json({
                 messages: [
                     {
                         type: "to_user",
-                        content: "🚫 Por favor, selecciona al menos una categoría para buscar opciones cercanas (por ejemplo, 'atractivos', 'restaurantes')."
+                        content: "🚫 Por favor, selecciona al menos una categoría para buscar opciones cercanas (por ejemplo, 'A', 'R')."
                     }
                 ]
             });
