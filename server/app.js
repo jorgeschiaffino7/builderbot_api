@@ -23,8 +23,8 @@ app.use(cors());
 app.use('/api/location', location); // Ruta para procesar la UBICACION de los atracciones 
 //app.use('/api/location', locationRoutes); // Ruta para procesar la UBICACION de los atracciones 
 //app.use('/api/restaurant', locationRestaurant); // Ruta para procesar la UBICACION del restaurante
-app.use('/api/attractions', attractionsRoutes); // Ruta para procesar las atracciones
-app.use('/api/restaurants', restaurantsRoutes); // Ruta para procesar los restaurantes
+app.use('/api/attractions', attractionsRoutes); // Ruta para procesar las atracciones osea el CRUD
+app.use('/api/restaurants', restaurantsRoutes); // Ruta para procesar los restaurantes osea el CRUD
 
 
 const PORT = process.env.PORT || 3000;
