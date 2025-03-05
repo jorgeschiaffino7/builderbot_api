@@ -266,7 +266,7 @@ async function getTravelTime(originLat, originLng, destLat, destLng) {
 
 
 
-/* ****************************** TERCERA VERSION ACTUALIZADA CON GOOGLE PLACES API RATINGS AND OPENING HOURS    ********************************************************************** */
+/* ******** TERCERA VERSION ACTUALIZADA CON GOOGLE PLACES API RATINGS AND OPENING HOURS-SIN BASE DE DATOS********************************************************************** */
 
 const distanceCalculator = require('../utils/distanceCalculator');
 const axios = require('axios'); 

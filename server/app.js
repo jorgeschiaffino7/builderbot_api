@@ -1,7 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//const locationRoutes = require('./routes/locationRoutes');
-//const locationRestaurant = require('./routes/locationrestRoutes'); 
 const location = require('./routes/location');
 const attractionsRoutes = require('./routes/attractionsRoutes');
 const restaurantsRoutes = require('./routes/restaurantsRoutes');
@@ -21,8 +19,7 @@ app.use(cors());
 
 // Rutas
 app.use('/api/location', location); // Ruta para procesar la UBICACION de los atracciones 
-//app.use('/api/location', locationRoutes); // Ruta para procesar la UBICACION de los atracciones 
-//app.use('/api/restaurant', locationRestaurant); // Ruta para procesar la UBICACION del restaurante
+
 app.use('/api/attractions', attractionsRoutes); // Ruta para procesar las atracciones osea el CRUD
 app.use('/api/restaurants', restaurantsRoutes); // Ruta para procesar los restaurantes osea el CRUD
 
